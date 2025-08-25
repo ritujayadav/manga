@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useMemo, useState } from "react";
 import {
   HashRouter as Router, Routes, Route, Link,
@@ -42,22 +44,20 @@ function Home() {
 
   const [type, setType] = useState("all"); 
   const [status, setStatus] = useState("all");
-useEffect(() => {
+
+  useEffect(() => {
   let ignore = false;
+
   const load = async () => {
     setLoading(true);
     try {
       const url = q
-        ? `${API}/manga?title=${encodeURIComponent(
-            q
-          )}&limit=24&includes[]=cover_art&availableTranslatedLanguage[]=en&contentRating[]=safe&contentRating[]=suggestive&order[relevance]=desc`
-        : `${API}/manga?limit=24&includes[]=cover_art&availableTranslatedLanguage[]=en&contentRating[]=safe&contentRating[]=suggestive&order[followedCount]=desc`;
+        ? `http://localhost:3001/api/manga?q=${encodeURIComponent(q)}`
+        : `http://localhost:3001/api/manga`;
 
-     
-      const proxyUrl = `https://corsproxy.io/?${url}`;
-
-      const res = await fetch(proxyUrl);
+      const res = await fetch(url);
       const data = await res.json();
+
       if (ignore) return;
       setItems(data.data || []);
     } catch (e) {
@@ -67,6 +67,7 @@ useEffect(() => {
       if (!ignore) setLoading(false);
     }
   };
+
   load();
   return () => (ignore = true);
 }, [q]);
