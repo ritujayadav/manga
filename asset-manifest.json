@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/manga/static/css/main.46735bb8.css",
-    "main.js": "/manga/static/js/main.eb63a907.js",
+    "main.js": "/manga/static/js/main.8ad48143.js",
     "index.html": "/manga/index.html",
     "main.46735bb8.css.map": "/manga/static/css/main.46735bb8.css.map",
-    "main.eb63a907.js.map": "/manga/static/js/main.eb63a907.js.map"
+    "main.8ad48143.js.map": "/manga/static/js/main.8ad48143.js.map"
   },
   "entrypoints": [
     "static/css/main.46735bb8.css",
-    "static/js/main.eb63a907.js"
+    "static/js/main.8ad48143.js"
   ]
 }
