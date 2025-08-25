@@ -42,32 +42,34 @@ function Home() {
 
   const [type, setType] = useState("all"); 
   const [status, setStatus] = useState("all");
+useEffect(() => {
+  let ignore = false;
+  const load = async () => {
+    setLoading(true);
+    try {
+      const url = q
+        ? `${API}/manga?title=${encodeURIComponent(
+            q
+          )}&limit=24&includes[]=cover_art&availableTranslatedLanguage[]=en&contentRating[]=safe&contentRating[]=suggestive&order[relevance]=desc`
+        : `${API}/manga?limit=24&includes[]=cover_art&availableTranslatedLanguage[]=en&contentRating[]=safe&contentRating[]=suggestive&order[followedCount]=desc`;
 
-  useEffect(() => {
-    let ignore = false;
-    const load = async () => {
-      setLoading(true);
-      try {
-         const url = q
-          ? `${API}/manga?title=${encodeURIComponent(
-              q
-            )}&limit=24&includes[]=cover_art&availableTranslatedLanguage[]=en&contentRating[]=safe&contentRating[]=suggestive&order[relevance]=desc`
-          : `${API}/manga?limit=24&includes[]=cover_art&availableTranslatedLanguage[]=en&contentRating[]=safe&contentRating[]=suggestive&order[followedCount]=desc`;
+     
+      const proxyUrl = `https://corsproxy.io/?${url}`;
 
-        const res = await fetch(url);
-        const data = await res.json();
-        if (ignore) return;
-        setItems(data.data || []);
-      } catch (e) {
-        console.error(e);
-        if (!ignore) setItems([]);
-      } finally {
-        if (!ignore) setLoading(false);
-      }
-    };
-    load();
-    return () => (ignore = true);
-  }, [q]);
+      const res = await fetch(proxyUrl);
+      const data = await res.json();
+      if (ignore) return;
+      setItems(data.data || []);
+    } catch (e) {
+      console.error(e);
+      if (!ignore) setItems([]);
+    } finally {
+      if (!ignore) setLoading(false);
+    }
+  };
+  load();
+  return () => (ignore = true);
+}, [q]);
 
  
   const filtered = useMemo(() => {
