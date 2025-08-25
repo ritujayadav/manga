@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  BrowserRouter as Router,Routes,Route,Link,
-  useNavigate,
-  useParams,  useSearchParams,
+  HashRouter as Router, Routes, Route, Link,
+  useNavigate, useParams, useSearchParams,
 } from "react-router-dom";
 import "./App.css";
 
