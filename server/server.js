@@ -4,14 +4,11 @@ import cors from "cors";
 
 const app = express();
 app.use(cors());
-
-const API = "https://api.mangadex.org";
+const API = "https://api.jikan.moe/v4/manga";
 
 app.get("/api/manga", async (req, res) => {
   const q = req.query.q;
-  const url = q
-    ? `${API}/manga?title=${encodeURIComponent(q)}&limit=24&includes[]=cover_art&availableTranslatedLanguage[]=en&contentRating[]=safe&contentRating[]=suggestive&order[relevance]=desc`
-    : `${API}/manga?limit=24&includes[]=cover_art&availableTranslatedLanguage[]=en&contentRating[]=safe&contentRating[]=suggestive&order[followedCount]=desc`;
+  const url = q ? `${API}?q=${encodeURIComponent(q)}&limit=24` : `${API}?limit=24`;
 
   try {
     const response = await fetch(url);
@@ -22,5 +19,5 @@ app.get("/api/manga", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch manga" });
   }
 });
-
-app.listen(3001, () => console.log("Backend running on http://localhost:3001"));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));

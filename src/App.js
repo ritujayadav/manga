@@ -44,16 +44,15 @@ function Home() {
 
   const [type, setType] = useState("all"); 
   const [status, setStatus] = useState("all");
-
-  useEffect(() => {
+useEffect(() => {
   let ignore = false;
 
   const load = async () => {
     setLoading(true);
     try {
       const url = q
-        ? `http://localhost:3001/api/manga?q=${encodeURIComponent(q)}`
-        : `http://localhost:3001/api/manga`;
+        ? `https://manga-3-vyj0.onrender.com/api/manga?q=${encodeURIComponent(q)}`
+        : `https://manga-3-vyj0.onrender.com/api/manga`;
 
       const res = await fetch(url);
       const data = await res.json();
@@ -71,6 +70,7 @@ function Home() {
   load();
   return () => (ignore = true);
 }, [q]);
+
 
  
   const filtered = useMemo(() => {
